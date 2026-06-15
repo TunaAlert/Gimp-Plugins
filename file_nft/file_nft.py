@@ -36,7 +36,6 @@ from gi.repository import Gio
 
 plug_in_save_proc = "plug-in-tunaalert-py3-file-nft-save"
 plug_in_load_proc = "plug-in-tunaalert-py3-file-nft-load"
-plug_in_binary = "file-nft"
 
 colors = {
     0x0: 0xf0f0f0, #white
@@ -277,18 +276,21 @@ class FileNFT (Gimp.PlugIn):
     def do_query_procedures(self):
         return [plug_in_save_proc, plug_in_load_proc]
 
+    def set_il8n():
+        return False
+
     def do_create_procedure(self, name):
         procedure = None
         if name == plug_in_save_proc:
             procedure = Gimp.ExportProcedure.new(self, name, Gimp.PDBProcType.PLUGIN, False, export_to_nft, None, None)
             procedure.set_extensions("nft")
-            procedure.set_format_name("Nitrogen Fingers Text")
             procedure.set_menu_label("Nitrogen Fingers Text")
+            procedure.set_documentation("Saves files in the NFT format.")
         if name == plug_in_load_proc:
             procedure = Gimp.LoadProcedure.new(self, name, Gimp.PDBProcType.PLUGIN, import_nft, None, None)
             procedure.set_extensions("nft")
-            procedure.set_format_name("Nitrogen Fingers Text")
             procedure.set_menu_label("Nitrogen Fingers Text")
+            procedure.set_documentation("Load files in the NFT format.")
         return procedure
 
 Gimp.main(FileNFT.__gtype__, sys.argv)
